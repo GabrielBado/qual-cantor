@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Quem é o cantor?</title>
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="font/material-icons.css" />
+  </head>
+  <body>
+    <section class="inicio">
+      <h1>QUEM É O CANTOR?</h1>
+      <button>INICIAR</button>
+    </section>
+  
+
+    <section class="pagina1">
+      <header>
+        <p>Quem é o cantor?</p>
+        <p>
+          <span class="mticons">alarm</span>
+          00:<span class="tempo">00</span>
+        </p>
+      </header>
+
+      <div>
+        <h1>Quem canta estas musicas?</h1>
+        <ul>
+
+          <li><img class="certo" src="img/camila.jpg" /></li>
+
+          <li><img class="errado" src="img/beyonce.jpg" /></li>
+
+          <li><img class="errado" src="img/ariana.jpg" /></li>
+
+          <li><img class="errado"  src="img/billie.jpg" /></li>
+
+          <li><img class="certo" src="img/rihanna.jpg" /></li>
+
+          <li><img class="errado" src="img/madonna.jpg" /></li>
+
+          <li><img class="errado" src="img/gaga.jpg" /></li>
+
+          <li><img class="errado" src="img/cardib.jpg" /></li>
+
+          <li><img class="errado" src="img/avril.webp" /></li>
+      
+        </ul>
+
+      </div>
+
+      <p class="button">
+        <button>></button>
+      </p>
+
+      <footer> </footer>
+    </section>
+
+    <section class="pagina2">
+      <header>
+        <p>Quem é o cantor?</p>
+        <p>
+          <span class="mticons">alarm</span>
+          00:<span class="tempo2">00</span>
+        </p>
+      </header>
+
+      <div>
+        <h1>Quem canta estas musicas?</h1>
+        <ul>
+
+          <li><img class="errado" src="img/justin.jpg" /></li>
+
+          <li><img class="errado" src="img/shawn.webp" /></li>
+
+          <li><img class="errado" src="img/fred.jpg" /></li>
+
+          <li><img class="certo"  src="img/jao.jpg" /></li>
+
+          <li><img class="errado" src="img/hozier.jpeg" /></li>
+
+          <li><img class="errado" src="img/bruno.jpg" /></li>
+
+          <li><img class="certo" src="img/ed.webp" /></li>
+
+          <li><img class="errado" src="img/harry.jpg" /></li>
+
+          <li><img class="errado" src="img/lukas.jpg" /></li>
+      
+        </ul>
+
+      </div>
+
+      <p class="button">
+        <button>></button>
+      </p>
+
+      <footer>
+      </footer>
+    </section>
+
+    <section class="paginaFail">
+      <h1>VOCÊ PERDEU :(</h1>
+  
+    </section>
+
+    <section class="paginaWin">
+      <h1>VOCÊ GANHOU :)</h1>
+
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    //carregamento
+    mscHavana = new Audio("musicas/havana.mp3");
+    mscUmbrella = new Audio("musicas/umbrella.mp3");
+    mscGalwayGirl = new Audio("musicas/girl.mp3");
+    mscLindoDemais = new Audio ("musicas/lindodemais.mp3")
+
+    //pagina 1 
+      $("section.inicio button").on("click", function () {
+
+        $("section").hide();
+        $("section.pagina1").show();
+        mscHavana.play();
+        mscUmbrella.play();
+
+        setInterval(function () {
+          var tempo = parseInt($("span.tempo").text());
+          var soma = tempo + 1;
+          if (soma < 10) {
+            soma = "0" + soma;
+          }
+          $("span.tempo").text(soma);
+
+        }, 1000);
+      });
+
+      //acertos e erros pg 1
+      var acertos = 0;
+      $("section.pagina1 ul img.certo").one("click", function () {
+        acertos = acertos + 1;
+        $(this).css({ opacity: 0.5 });
+
+      });
+
+      var erros = 0;
+      $("section.pagina1 ul img.errado").one("click", function () {
+        erros = erros + 1;
+        $(this).css({ opacity: 0.5 });
+      });
+
+      //acertos e erros pg 2
+      var acertos = 0;
+      $("section.pagina2 ul img.certo").one("click", function () {
+        acertos = acertos + 1;
+        $(this).css({ opacity: 0.5 });
+
+      });
+
+      var erros = 0;
+      $("section.pagina2 ul img.errado").one("click", function () {
+        erros = erros + 1;
+        $(this).css({ opacity: 0.5 });
+      });
+
+
+      //transição pg1 -> pg2
+      $("section.pagina1 button").on("click", function () {
+        $("section").hide();
+        $("section.pagina2").show();
+
+        mscHavana.pause();
+        mscUmbrella.pause();
+
+        mscLindoDemais.play();
+        mscGalwayGirl.play();
+      });
+
+  
+
+      //transição para pg final
+
+      $("section.pagina2 button").on("click", function () {
+        mscLindoDemais.pause();
+        mscGalwayGirl.pause();
+        
+        if (acertos > erros) {
+        $("section").hide();
+        $("section.paginaWin").show();
+
+        }else{
+        $("section").hide();
+        $("section.paginaFail").show();
+
+        }
+        
+      });
+
+
+
+    </script>
+
+  </body>
+</html>
